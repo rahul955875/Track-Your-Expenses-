@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Input from "./Input";
+import SelectField from "./SelectField";
 
 const ExpenseForm = ({ setExpenses }) => {
   const [errors, setErrors] = useState({});
@@ -46,46 +48,32 @@ const ExpenseForm = ({ setExpenses }) => {
 
   return (
     <form className="expense-form" onSubmit={handleSubmit}>
-      <div className="input-container">
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          value={input.title}
-          name="title"
-          onChange={handleChange}
-        />
-        <p className="err">{errors.title}</p>
-      </div>
-      <div className="input-container">
-        <label htmlFor="category">Category</label>
-        <select
-          id="category"
-          value={input.category}
-          name="category"
-          onChange={handleChange}
-        >
-          <option value="" hidden>
-            Select Category
-          </option>
-          <option value="grocery">Grocery</option>
-          <option value="clothes">Clothes</option>
-          <option value="bills">Bills</option>
-          <option value="education">Education</option>
-          <option value="medicine">Medicine</option>
-        </select>
-        <p className="err">{errors.category}</p>
-      </div>
-      <div className="input-container">
-        <label htmlFor="amount">Amount</label>
-        <input
-          type="number"
-          id="amount"
-          value={input.amount}
-          name="amount"
-          onChange={handleChange}
-        />
-        <p className="err">{errors.amount}</p>
-      </div>
+      <Input
+        label="Title"
+        value={input.title}
+        name={"title"}
+        onChange={handleChange}
+        error={errors.title}
+      />
+
+      <SelectField
+        label="Category"
+        id="category"
+        name="category"
+        onChange={handleChange}
+        value={input.category}
+        defaultOption="Select Category"
+        error={errors.category}
+        options={["Grocery", "Clothes", "Bills", "Education", "Medicine"]}
+      />
+      <Input
+        label="Amount"
+        value={input.amount}
+        name={"amount"}
+        onChange={handleChange}
+        error={errors.amount}
+        type="number"
+      />
       <button className="add-btn">Add</button>
     </form>
   );
