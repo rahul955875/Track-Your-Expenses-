@@ -4,10 +4,21 @@ import SelectField from "./SelectField";
 
 const ExpenseForm = ({ setExpenses }) => {
   const [errors, setErrors] = useState({});
-
+  const validateConfig = {
+    title: [
+      { required: true, message: "Please Enter Title" },
+      { minWidth: 3, message: "Enter Atleast 3 Charachters long" },
+    ],
+    category: [{ required: true, message: "Please Enter Title" }],
+    amount : [{ required: true, message: "Please Enter Amount" }]
+  };
   const validate = (formdata) => {
     const errorsData = {};
     if (Object.keys(errorsData).length) return;
+    Object.entries(validateConfig).forEach(([key, value])=>{
+      
+    })
+
     if (!formdata.title) {
       errorsData.title = "Please Enter Title";
     }

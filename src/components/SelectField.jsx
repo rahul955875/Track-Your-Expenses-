@@ -19,9 +19,10 @@ const SelectField = ({
         </option>
 
         {options.map((option) => (
-          <option key={option} value={option}>{option}</option>
+          <option key={option} value={option}>
+            {option}
+          </option>
         ))}
-
       </select>
       <p className="err">{error}</p>
     </div>
