@@ -16,7 +16,8 @@ const ExpenseForm = ({ setExpenses }) => {
     const errorsData = {};
     if (Object.keys(errorsData).length) return;
     Object.entries(validateConfig).forEach(([key, value])=>{
-      
+      console.log(key,value)
+
     })
 
     if (!formdata.title) {
