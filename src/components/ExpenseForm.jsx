@@ -9,26 +9,33 @@ const ExpenseForm = ({ setExpenses }) => {
       { required: true, message: "Please Enter Title" },
       { minWidth: 3, message: "Enter Atleast 3 Charachters long" },
     ],
-    category: [{ required: true, message: "Please Enter Title" }],
+    category: [{ required: true, message: "Please Select Category" }],
     amount : [{ required: true, message: "Please Enter Amount" }]
   };
   const validate = (formdata) => {
     const errorsData = {};
-    if (Object.keys(errorsData).length) return;
-    Object.entries(validateConfig).forEach(([key, value])=>{
-      console.log(key,value)
-
+    Object.entries(formdata).forEach(([key, value])=>{
+      validateConfig[key].some((rule)=>{
+        if(rule.required && !value){
+          errorsData[key] = rule.message
+          return true
+        }
+        if(rule.minWidth && value.length < 3){
+          errorsData[key] = rule.message
+          return true
+        }
+      })
     })
 
-    if (!formdata.title) {
-      errorsData.title = "Please Enter Title";
-    }
-    if (!formdata.category) {
-      errorsData.category = "Please Enter Category";
-    }
-    if (!formdata.amount) {
-      errorsData.amount = "Please Enter amount";
-    }
+    // if (!formdata.title) {
+    //   errorsData.title = "Please Enter Title";
+    // }
+    // if (!formdata.category) {
+    //   errorsData.category = "Please Enter Category";
+    // }
+    // if (!formdata.amount) {
+    //   errorsData.amount = "Please Enter amount";
+    // }
     setErrors(errorsData);
     return errorsData;
   };
@@ -41,7 +48,7 @@ const ExpenseForm = ({ setExpenses }) => {
     e.preventDefault();
     // validate(input)
     const validateData = validate(input);
-    // console.log(validateData)
+    console.log(validateData)
     if (Object.keys(validateData).length) return;
     setExpenses((preveState) => [
       ...preveState,
