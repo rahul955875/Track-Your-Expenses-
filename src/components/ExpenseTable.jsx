@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import ContextMenu from "./ContextMenu";
 
-const ExpenseTable = ({ expenses, setExpenses }) => {
+const ExpenseTable = ({ expenses, setExpenses,formState,rows }) => {
+  
   const [query, setQuery] = useState("");
-  const [rowId, setRowId] = useState('')
+  const [rowId, setRowId] = rows
   const [elementStyle, setElementStyle] = useState({});
   const handleAscending = () => {
     // const AscendingExpneses = expenses.sort((a,b)=> a.amount - b.amount)
@@ -23,7 +24,7 @@ const ExpenseTable = ({ expenses, setExpenses }) => {
 
   return (
     <>
-      <ContextMenu elementStyle={elementStyle} rowId={rowId} />
+      <ContextMenu elementStyle={elementStyle} setExpenses={setExpenses} expenses={expenses} rowId={rowId} formState = {formState}  />
       <table className="expense-table" onClick={()=>setElementStyle({})}>
         <thead>
           <tr>

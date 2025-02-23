@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Input from "./Input";
 import SelectField from "./SelectField";
 
-const ExpenseForm = ({ setExpenses }) => {
+const ExpenseForm = ({ setExpenses, formState, rowId }) => {
+  const [input, setinput] = formState;
   const [errors, setErrors] = useState({});
   const validateConfig = {
     title: [
@@ -10,22 +11,22 @@ const ExpenseForm = ({ setExpenses }) => {
       { minWidth: 3, message: "Enter Atleast 3 Charachters long" },
     ],
     category: [{ required: true, message: "Please Select Category" }],
-    amount : [{ required: true, message: "Please Enter Amount" }]
+    amount: [{ required: true, message: "Please Enter Amount" }],
   };
   const validate = (formdata) => {
     const errorsData = {};
-    Object.entries(formdata).forEach(([key, value])=>{
-      validateConfig[key].some((rule)=>{
-        if(rule.required && !value){
-          errorsData[key] = rule.message
-          return true
+    Object.entries(formdata).forEach(([key, value]) => {
+      validateConfig[key]?.some((rule) => {
+        if (rule.required && !value) {
+          errorsData[key] = rule.message;
+          return true;
         }
-        if(rule.minWidth && value.length < 3){
-          errorsData[key] = rule.message
-          return true
+        if (rule.minWidth && value.length < 3) {
+          errorsData[key] = rule.message;
+          return true;
         }
-      })
-    })
+      });
+    });
 
     // if (!formdata.title) {
     //   errorsData.title = "Please Enter Title";
@@ -39,17 +40,26 @@ const ExpenseForm = ({ setExpenses }) => {
     setErrors(errorsData);
     return errorsData;
   };
-  const [input, setinput] = useState({
-    title: "",
-    category: "",
-    amount: "",
-  });
   const handleSubmit = (e) => {
     e.preventDefault();
     // validate(input)
     const validateData = validate(input);
-    console.log(validateData)
+    console.log(validateData);
     if (Object.keys(validateData).length) return;
+    if (rowId) {
+      // const newExpneses = expenses.map((item) =>
+      //   item.id === rowId ? newInput : item
+      // );
+      setExpenses((preveState)=> preveState.map((item) =>
+        item.id === rowId ? input : item
+      ));
+      setinput({
+        title: "",
+        category: "",
+        amount: "",
+      });
+      return;
+    }
     setExpenses((preveState) => [
       ...preveState,
       { ...input, id: crypto.randomUUID() },
