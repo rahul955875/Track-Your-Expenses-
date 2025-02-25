@@ -7,7 +7,8 @@ import ExpenseTable from "./components/ExpenseTable";
 import expenseData from "./expenseData";
 
 function App() {
-  const [expenses, setExpenses] = useState(expenseData);
+
+  const [expenses, setExpenses] = useState(  JSON.parse(localStorage.getItem('Expenses')) || expenseData);
   const [rowId, setRowId] = useState('')
   const [input, setinput] = useState({
     title: "",
@@ -19,7 +20,7 @@ function App() {
     <>
       <h1>Track Your Expense</h1>
       <div className="expense-tracker">
-        <ExpenseForm setExpenses={setExpenses} formState ={[input,setinput]} rowId = {rowId} />
+        <ExpenseForm setExpenses={setExpenses} formState ={[input,setinput]} expenses={expenses} rowId = {rowId} setRowId={setRowId} />
         <ExpenseTable expenses={expenses} setExpenses={setExpenses} formState ={[input,setinput]} rows={[rowId, setRowId]} />
       </div>
     </>

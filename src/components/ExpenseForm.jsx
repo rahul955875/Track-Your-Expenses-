@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "./Input";
 import SelectField from "./SelectField";
 
-const ExpenseForm = ({ setExpenses, formState, rowId }) => {
+const ExpenseForm = ({ setExpenses, formState, rowId, setRowId, expenses }) => {
   const [input, setinput] = formState;
   const [errors, setErrors] = useState({});
   const validateConfig = {
@@ -46,20 +46,21 @@ const ExpenseForm = ({ setExpenses, formState, rowId }) => {
     const validateData = validate(input);
     console.log(validateData);
     if (Object.keys(validateData).length) return;
+    console.log(rowId)
     if (rowId) {
-      // const newExpneses = expenses.map((item) =>
-      //   item.id === rowId ? newInput : item
-      // );
-      setExpenses((preveState)=> preveState.map((item) =>
-        item.id === rowId ? input : item
-      ));
+      setExpenses((preveState) =>
+        preveState.map((item) => (item.id === rowId ? input : item))
+      );
       setinput({
         title: "",
         category: "",
         amount: "",
       });
+      setRowId("");
+      localStorage.setItem('Expenses',JSON.stringify(expenses))
       return;
     }
+
     setExpenses((preveState) => [
       ...preveState,
       { ...input, id: crypto.randomUUID() },
@@ -103,7 +104,7 @@ const ExpenseForm = ({ setExpenses, formState, rowId }) => {
         error={errors.amount}
         type="number"
       />
-      <button className="add-btn">Add</button>
+      <button className="add-btn">{rowId ? "Save" : "Add"}</button>
     </form>
   );
 };
