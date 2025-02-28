@@ -7,12 +7,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.js'
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseTable from "./components/ExpenseTable";
 import expenseData from "./expenseData";
+import { useLocalStorage } from "./components/hooks/useLocalStorage";
 
 function App() {
 
-  const [expenses, setExpenses] = useState(  JSON.parse(localStorage.getItem('Expenses')) || expenseData);
-  const [rowId, setRowId] = useState('')
-  const [input, setinput] = useState({
+  const [expenses, setExpenses] = useLocalStorage('expeseTableData',expenseData);
+  const [rowId, setRowId] = useLocalStorage('storeRowid','')
+  const [input, setinput] = useLocalStorage('storeInput',{
     title: "",
     category: "",
     amount: "",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ContextMenu from "./ContextMenu";
 
 const ExpenseTable = ({ expenses, setExpenses,formState,rows }) => {
-  
+console.log(expenses)  
   const [query, setQuery] = useState("");
   const [rowId, setRowId] = rows
   const [elementStyle, setElementStyle] = useState({});
