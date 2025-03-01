@@ -9,6 +9,9 @@ main {
     max-width: 900px;
     margin-inline: auto;
 }
+select{
+    background-color: transparent;
+}
 
 * {
     box-sizing: border-box;
@@ -24,11 +27,11 @@ main {
     width: 100%;
 }
 
-.expense-table {
+/* .expense-table {
     margin-top: 30px;
     width: 100%;
     border-collapse: collapse;
-}
+} */
 
 .expense-table select {
     font: inherit;
@@ -69,8 +72,8 @@ main {
 .expense-table th,
 .expense-table td {
     border: 1px solid #444;
-    text-align: left;
-    padding: 4px 8px;
+    /* text-align: left; */
+    /* padding: 4px 8px; */
 }
 
 .input-container {
